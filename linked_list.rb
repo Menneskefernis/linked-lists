@@ -92,11 +92,32 @@ class LinkedList
   def to_s
     current_node = head
 
+    string = ""
+
     until current_node == tail.next_node
-      puts current_node.value
+      string << "(#{current_node.value}) -> "
       current_node = current_node.next_node
     end
-    puts "nil"
+    string << "nil"
+  end
+
+  def insert_at(value, index)
+    return self.append(value) if index == self.size + 1
+    return self.prepend(value) if index == 0
+
+    new_node = Node.new(value)
+
+    previous_node = self.at(index - 1)
+    next_node = self.at(index)
+    
+    previous_node.next_node = new_node
+    new_node.next_node = next_node
+
+    self.size += 1
+  end
+
+  def remove_at(index)
+    
   end
 end
 
@@ -105,8 +126,13 @@ list.append(42)
 list.append("John")
 list.append("fuck")
 
-list.to_s
+list.insert_at("fisse", 1)
+puts list.at(1).value
+puts list.at(2).value
+puts list.to_s
+puts list.size
 
+#list.to_s
 #puts list.find("fuck")
 #puts list.contains?(42)
 #list.pop
