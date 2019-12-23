@@ -76,6 +76,18 @@ class LinkedList
     end
     false
   end
+
+  def find(data)
+    current_node = head
+    count = 0
+
+    loop do 
+        return nil if current_node.nil?
+        return count if current_node.value == data
+        count +=1
+        current_node = current_node.next_node
+    end
+  end
 end
 
 list = LinkedList.new
@@ -83,8 +95,9 @@ list.append(42)
 list.append("John")
 list.append("fuck")
 
-puts list.contains?(42)
+puts list.find("fuck")
 
+#puts list.contains?(42)
 #list.pop
 #puts list.tail.value
 #puts list.at(3).value
