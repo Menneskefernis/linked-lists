@@ -82,11 +82,21 @@ class LinkedList
     count = 0
 
     loop do 
-        return nil if current_node.nil?
-        return count if current_node.value == data
-        count +=1
-        current_node = current_node.next_node
+      return nil if current_node.nil?
+      return count if current_node.value == data
+      count +=1
+      current_node = current_node.next_node
     end
+  end
+
+  def to_s
+    current_node = head
+
+    until current_node == tail.next_node
+      puts current_node.value
+      current_node = current_node.next_node
+    end
+    puts "nil"
   end
 end
 
@@ -95,8 +105,9 @@ list.append(42)
 list.append("John")
 list.append("fuck")
 
-puts list.find("fuck")
+list.to_s
 
+#puts list.find("fuck")
 #puts list.contains?(42)
 #list.pop
 #puts list.tail.value
