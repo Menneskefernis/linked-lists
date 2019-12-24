@@ -1,16 +1,17 @@
 require_relative 'node'
 
 class LinkedList
-  attr_accessor :head, :tail, :size
+  attr_accessor :head, :tail
+  #, :size
 
   def initialize
     @head = nil
     @tail = nil
-    @size = 0
+    #@size = 0
   end
   
   def append(value)
-    self.size += 1
+    #self.size += 1
     new_node = Node.new(value)
 
     if tail
@@ -23,7 +24,7 @@ class LinkedList
   end
 
   def prepend(value)
-    self.size += 1
+    #self.size += 1
     new_node = Node.new(value)
 
     if head
@@ -35,21 +36,22 @@ class LinkedList
     end
   end
 
-  #def size
-    #return 0 unless head
-    #
-    #count = 1
-    #current_node = head
-    #
-    #while current_node.next_node
-    #  count += 1
-    #  current_node = current_node.next_node
-    #end   
-    #count
-  #end
+  def size
+   return 0 unless head
+   
+   count = 1
+   current_node = head
+   
+   while current_node.next_node
+     count += 1
+     current_node = current_node.next_node
+   end   
+   count
+  end
   
-  def at(index)
+  def at(index)    
     current_node = head
+
     index.times do
       current_node = current_node.next_node
     end
@@ -64,7 +66,8 @@ class LinkedList
     end
     self.tail = current_node
     tail.next_node = nil
-    
+
+    #self.size -= 1
   end
 
   def contains?(value)
@@ -113,24 +116,50 @@ class LinkedList
     previous_node.next_node = new_node
     new_node.next_node = next_node
 
-    self.size += 1
+    #self.size += 1
   end
 
   def remove_at(index)
-    
+    return self.head = self.at(1) if index == 0
+    if index + 1 == size
+      self.tail = self.at(index - 1)
+      tail.next_node = nil
+      return
+    end
+
+    previous_node = self.at(index - 1)
+    next_node = self.at(index + 1)
+
+    previous_node.next_node = next_node
+
+    #self.size -= 1
   end
 end
 
 list = LinkedList.new
 list.append(42)
 list.append("John")
-list.append("fuck")
-
-list.insert_at("fisse", 1)
-puts list.at(1).value
-puts list.at(2).value
+list.append("Laila")
+list.append("Viggo")
+puts list.to_s
+puts list.remove_at(3)
+list.append("Johnny")
+list.insert_at(52, 2)
+puts list.tail.value
+puts list.to_s
+list.remove_at(4)
 puts list.to_s
 puts list.size
+#puts list.to_s
+
+#list.remove_at(2)
+#puts list.at(2).value
+
+#list.insert_at(18, 1)
+#puts list.at(1).value
+#puts list.at(2).value
+#puts list.to_s
+#puts list.size
 
 #list.to_s
 #puts list.find("fuck")
